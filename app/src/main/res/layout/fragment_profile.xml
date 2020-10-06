@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profiler_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPurpleL"
+    tools:layout_editor_absoluteY="81dp">
+
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/purple_frame"
+        android:background="@drawable/avatar_1_raster"
+        tools:background="@tools:sample/avatars"
+        tools:src="@drawable/purple_frame" />
+
+    <View
+        android:id="@+id/user_data_card"
+        android:layout_width="0dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/rounded_rect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pic"
+        app:layout_constraintVertical_bias="1.0"/>
+
+    <TextView
+        android:id="@+id/profile_user_name"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Максим Овчинников"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_data_card" />
+    <ImageView
+        android:id="@+id/mail"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_user_name"
+        app:layout_constraintEnd_toStartOf="@id/mail_text"
+
+        android:background="@drawable/mail"/>
+    <TextView
+        android:id="@+id/mail_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="m.ovchinnikov6@gmail.com"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginStart="60dp"
+        app:layout_constraintTop_toTopOf="@+id/mail"
+        app:layout_constraintStart_toEndOf="@id/mail"
+        app:layout_constraintBottom_toBottomOf="@id/mail"
+        />
+
+    <ImageView
+        android:id="@+id/phone"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/mail"
+        app:layout_constraintTop_toBottomOf="@+id/mail"
+        app:layout_constraintEnd_toEndOf="@id/mail"
+        android:background="@drawable/cell_phone"/>
+    <TextView
+        android:id="@+id/phone_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8-952-422-64-58"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/phone"
+        app:layout_constraintStart_toStartOf="@id/mail_text"
+        app:layout_constraintBottom_toBottomOf="@id/phone"
+        />
+    <ImageView
+        android:id="@+id/edu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/phone"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
+        app:layout_constraintEnd_toEndOf="@id/phone"
+        android:background="@drawable/grad"/>
+    <TextView
+        android:id="@+id/edu_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="студент"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/edu"
+        app:layout_constraintStart_toStartOf="@id/phone_text"
+        app:layout_constraintBottom_toBottomOf="@id/edu"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

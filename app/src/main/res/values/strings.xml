@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Белгород-Путеводитель</string>
+    <string name="title_news">Новости</string>
+    <string name="title_entertainment">Развлечения</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_market">Магазин</string>
+</resources>

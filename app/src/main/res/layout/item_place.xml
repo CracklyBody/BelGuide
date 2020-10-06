@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_cinema"
+                android:transitionName="img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/shadow_bottom"
+                android:src="@drawable/bottom_shadow"
+                android:layout_alignBottom="@id/img_cinema"
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_load_photo_place"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small"
+                android:layout_marginTop="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/cinema_title"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:text="Author"
+                android:gravity="bottom"
+                android:layout_alignLeft="@id/shadow_bottom"
+                android:layout_alignStart="@id/shadow_bottom"
+                android:layout_alignRight="@id/shadow_bottom"
+                android:layout_alignEnd="@id/shadow_bottom"
+                android:layout_below="@id/progress_load_photo_place"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>
