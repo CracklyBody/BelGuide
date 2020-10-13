@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testframe.R
 
-class SliderItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+class SliderItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val tvItem: TextView? = itemView?.findViewById(R.id.tv_item)
+    val tvItem: TextView = itemView.findViewById(R.id.tv_item)
 }

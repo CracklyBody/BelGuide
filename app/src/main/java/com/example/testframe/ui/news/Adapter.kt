@@ -23,15 +23,15 @@ import com.example.testframe.R
 class Adapter(private val articles:List<Article> = listOf<Article>(),
                 private val context: Context
 ) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
-    var onItemClickListener: OnItemClickListener? = null
+    lateinit var onItemClickListener: OnItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view:View= LayoutInflater.from(context).inflate(R.layout.item,parent,false)
-        return MyViewHolder(view,onItemClickListener!!)
+        return MyViewHolder(view,onItemClickListener)
     }
 
     override fun onBindViewHolder(holders: MyViewHolder, position: Int) {
         val holder: MyViewHolder = holders
-        val model: Article = articles.get(position)
+        val model: Article = articles[position]
 
         val requestOptions: RequestOptions = RequestOptions()
         requestOptions.placeholder(Utils.getRandomDrawbleColor())
@@ -67,12 +67,12 @@ class Adapter(private val articles:List<Article> = listOf<Article>(),
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.imageView)
 
-        holder.title.setText(model.title)
-        holder.desc.setText(model.description)
-        holder.source.setText(model.source.name)
-        holder.time.setText(" \u2022 " + Utils.DateToTimeFormat(model.publishedAt))
-        holder.published_at.setText(Utils.DateFormat(model.publishedAt))
-        holder.author.setText(model.author)
+        holder.title.text = model.title
+        holder.desc.text = model.description
+        holder.source.text = model.source.name
+        holder.time.text = " \u2022 " + Utils.DateToTimeFormat(model.publishedAt)
+        holder.published_at.text = Utils.DateFormat(model.publishedAt)
+        holder.author.text = model.author
     }
 
     override fun getItemCount(): Int = articles.size

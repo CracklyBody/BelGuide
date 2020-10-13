@@ -17,10 +17,10 @@ class PlaceAdapter(
     private val articles: List<Place> = listOf<Place>(),
     private val context: Context
 ) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
-    var onItemClickListener: OnItemClickListener? = null
+    lateinit var onItemClickListener: OnItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.item_place, parent, false)
-        return PlaceViewHolder(view, onItemClickListener!!)
+        return PlaceViewHolder(view, onItemClickListener)
     }
 
     override fun onBindViewHolder(holders: PlaceViewHolder, position: Int) {

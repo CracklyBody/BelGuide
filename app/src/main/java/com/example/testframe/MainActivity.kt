@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
-    var sharedPreferences: SharedPreferences? = null
+    lateinit var sharedPreferences: SharedPreferences
     lateinit var selectedFragment: Fragment
 
     lateinit var active: Fragment//1
@@ -30,40 +30,38 @@ class MainActivity : AppCompatActivity() {
             selectedFragment
         ).addToBackStack(null)
             .commit()
-        val editor = sharedPreferences!!.edit()
-        var lng:Long = sharedPreferences!!.getLong("value",0)
+        val editor = sharedPreferences.edit()
+        val lng:Long = sharedPreferences.getLong("value",0)
         editor.putLong("value", lng+5000)
         editor.apply()
 
     }
 
     private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
-        object : BottomNavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when (item.getItemId()) {
-                    R.id.navigation_entertainment -> {
-                        selectedFragment = EntertainmentFragment()
-                    }
-                    R.id.navigation_news -> {
-                        selectedFragment = NewsFragment()
-                    }
-                    R.id.navigation_profile -> {
-                        selectedFragment = ProfileFragment()
-                    }
-                    R.id.navigation_market -> {
-                        var v:Long = 2
-                        selectedFragment = MarketFragment(sharedPreferences!!.getLong("value",v))
-                    }
-                    else -> selectedFragment = ProfileFragment()
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_entertainment -> {
+                    selectedFragment = EntertainmentFragment()
                 }
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.nav_host_fragment,
-                    selectedFragment
-                ).addToBackStack(null)
-                    .commit()
-
-                return true
+                R.id.navigation_news -> {
+                    selectedFragment = NewsFragment()
+                }
+                R.id.navigation_profile -> {
+                    selectedFragment = ProfileFragment()
+                }
+                R.id.navigation_market -> {
+                    val v:Long = 2
+                    selectedFragment = MarketFragment(sharedPreferences.getLong("value",v))
+                }
+                else -> selectedFragment = ProfileFragment()
             }
+            supportFragmentManager.beginTransaction().replace(
+                R.id.nav_host_fragment,
+                selectedFragment
+            ).addToBackStack(null)
+                .commit()
+
+            true
         }
 
 }

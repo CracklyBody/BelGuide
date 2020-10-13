@@ -14,7 +14,6 @@ var retrofit: Retrofit? = null
 
 class ApiClient(){
 
-    init{ }
     companion object {
         fun getApiClient(): Retrofit {
             retrofit = Retrofit.Builder().baseUrl(BASE_URL)
@@ -57,7 +56,7 @@ class ApiClient(){
                 val builder = OkHttpClient.Builder()
                 builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 // builder.hostnameVerifier { _, _ -> true }
-                builder.hostnameVerifier(HostnameVerifier { _, _ -> true })
+                builder.hostnameVerifier { _, _ -> true }
 
                 return builder
             } catch (e: Exception) {
@@ -65,5 +64,4 @@ class ApiClient(){
             }
         }
     }
-
 }

@@ -110,6 +110,5 @@ class EntertainmentFragment() : Fragment() {
       }
     }
     (rvHorizontalPicker.layoutManager as SliderLayoutManager).firstorder()
-
   }
 }
