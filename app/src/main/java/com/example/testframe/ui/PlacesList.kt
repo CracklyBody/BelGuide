@@ -16,8 +16,8 @@ val cinema_list = listOf(
 val park_list = listOf(
     Place("Победа",Uri.parse("https://bel.cultreg.ru/uploads/370c4d2fc7f0a815d9fd55909c5d4f4d_w540_h360.jpg")),
     Place("Центарльный",Uri.parse("https://media-cdn.tripadvisor.com/media/photo-s/06/68/b2/34/caption.jpg")),
-    Place("Пушкинская аллея",Uri.parse("https://lh3.googleusercontent.com/proxy/YSDrbpw2L0Rv7yi5FErQLr2r6tnfYzkd7wWFwFGB6gcJBBCQObF6KENGE6sycHDAcjWs5fzQ7IZQEcuIjjf2JSG-fw")),
-    Place("Юнити", Uri.parse("https://lh3.googleusercontent.com/proxy/ViKgd9c4N49-jHEnocFqPqtpB1bOZjXREHUPNvBCA_L8H5LDaN7l8uWQYAFFrP_-XXmqama2lxgHuZ_2LERzg2pe_nlhHG5fRyV9i9sOS_w")),
+    Place("Пушкинская аллея",Uri.parse("https://gidavia.com/wp-content/uploads/2018/12/6-%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F-%D0%B0%D0%BB%D0%BB%D0%B5%D1%8F.jpg")),
+    Place("Юнити", Uri.parse("https://lh3.googleusercontent.com/proxy/XDe247bnfUKxxl4izmWlu3ZzYnB9G6bDX8PG52mPl1809BaWoUsljGLAenBFpAa4Nhja7cdwNZIAy2dnOnxcHUZYEH-v_F-RUbOiKahSc0QsUfgpBTIwK5ZkZODnHMso78P70VYrfWoedYmuSkidBKJInWpl9TZNzIaUhEQ0hOB_1ukaHxR51dtK8dpDsRGEqn4")),
     Place("Котофей",Uri.parse("https://img02.rl0.ru/5e5ecc2134958c8bd0c27a51ffa82af2/765x525i/https/news.rambler.ru/img/2018/10/53693a9272b0e.jpg")),
     Place("Динопарк", Uri.parse("https://bel.cultreg.ru/uploads/1e22a767c45236a907eb2ec79ac85ea5_w540_h360.jpg"))
 )
@@ -43,9 +43,9 @@ val theatre_list = listOf(
 val museum_list= listOf(
     Place("Художественный музей",Uri.parse("https://www.rewizor.ru/files/95858i210.jpg")),
     Place("Краеведческий музей",Uri.parse("https://goskatalog.ru/muzfo-imaginator/rest/images/public/750/7510910/7510910.jpg")),
-    Place("Музей народной культуры",Uri.parse("https://lh3.googleusercontent.com/proxy/qQirkxUykRtvcS3XRZP7d0_A5RY0X6x1pmzahpV5b5dn2qTWAz3Q5bUiNa5l8mWcxuwU9Jg7CfLSAqOqd6U6ziM8mkTjx5_qRolHy6WtB_kKcW3bcDxILz9LvjsWAVZ_FHyJkg")),
+    Place("Музей народной культуры",Uri.parse("https://media-cdn.tripadvisor.com/media/photo-s/10/37/ef/a6/61.jpg")),
     Place("Литературный музей",Uri.parse("https://avatars.mds.yandex.net/get-altay/247136/2a0000015b2ec0b1a87ff438d4733260d62e/XXL")),
-    Place("Музей С.С.Косенкова",Uri.parse("https://lh3.googleusercontent.com/proxy/5NjctvGbAKJxlrIHmmW0q_Rlry4OXr8Jdv0Ex6eGRtLb7u4ZbWS5D7gDeQRHT3RBw1sKN4ZKnNly2Rcc7qmEhZKJ4FgJsngrDn9V46rYM9djnhEFre5qOyg")),
+    Place("Музей С.С.Косенкова",Uri.parse("https://mirbelogorya.ru/images/stories/news/2017/03/DSC_0003.jpg")),
     Place("Пушкинский музей",Uri.parse("https://цбс-белгород.рф/wp-content/uploads/2016/02/PBM-1.jpg")),
     Place("Музей связи",Uri.parse("https://klub31.ru/datas/logos/71_logo.jpg")),
     Place("Музей фотоискусства", Uri.parse("https://bel.cultreg.ru/uploads/958488752a6302df146c73559bb5ed82_w540_h360.jpg"))

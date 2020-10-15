@@ -2,14 +2,14 @@ package com.example.testframe.ui.entertainment.content
 
 import android.content.Context
 import android.graphics.PointF
+import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
-import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testframe.R
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.sqrt
@@ -17,11 +17,10 @@ import kotlin.math.sqrt
 
 class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) {
     private val MILLISECONDS_PER_INCH = 50f
+    private var timer = Timer()
     var currPos: Int = 1
-    private var timer: Timer
     init {
         orientation = HORIZONTAL
-        timer = Timer()
     }
 
     lateinit var callback: OnItemSelectedListener
@@ -33,13 +32,18 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
 
         // Smart snapping
         LinearSnapHelper().attachToRecyclerView(recyclerView)
-        recyclerView.scrollToPosition(10)
-//        timer.scheduleAtFixedRate(object : TimerTask() {
-//            override fun run() {
-//                recyclerView.smoothScrollToPosition(currPos)
-//                if (currPos >= recyclerView.adapter!!.itemCount) currPos=0 else currPos++
-//            }
-//        }, 1000, 1000)
+        recyclerView.isSelected = true
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                if (currPos >= recyclerView.adapter!!.itemCount) currPos = 0 else currPos++
+
+                recyclerView.layoutManager!!.smoothScrollToPosition(
+                    recyclerView,
+                    RecyclerView.State(),
+                    currPos
+                )
+            }
+        }, 100, 5000)
     }
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State) {
@@ -122,6 +126,9 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
             override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
                 return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
             }
+            override fun getHorizontalSnapPreference(): Int {
+                return SNAP_TO_START
+            }
         }
         smoothScroller.targetPosition = position
         startSmoothScroll(smoothScroller)
@@ -134,3 +141,4 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
         fun onItemSelected(layoutPosition: Int)
     }
 }
+

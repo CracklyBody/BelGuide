@@ -1,8 +1,12 @@
 package com.example.newsapp
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
+import android.util.DisplayMetrics
+import android.util.TypedValue
+import android.view.WindowManager
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
 import java.util.*
@@ -21,6 +25,17 @@ object Utils {
     fun getRandomDrawbleColor(): ColorDrawable {
         val idx: Int = Random().nextInt(vibrantLightColorList.size)
         return vibrantLightColorList[idx]
+    }
+
+    fun getScreenWidth(context: Context): Int {
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val dm = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(dm)
+        return dm.widthPixels
+    }
+
+    fun dpToPx(context: Context, value: Int) : Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value.toFloat(), context.resources.displayMetrics).toInt()
     }
 
     fun DateToTimeFormat(oldstringDate: String): String? {

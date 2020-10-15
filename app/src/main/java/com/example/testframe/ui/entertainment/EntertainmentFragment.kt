@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.Utils.getScreenWidth
 import com.example.testframe.R
 import com.example.testframe.ui.*
-import com.example.testframe.ui.entertainment.content.ScreenUtils
 import com.example.testframe.ui.entertainment.content.SliderAdapter
 import com.example.testframe.ui.entertainment.content.SliderLayoutManager
 import java.util.*
@@ -17,6 +17,7 @@ import java.util.*
 class EntertainmentFragment() : Fragment() {
   private lateinit var rvHorizontalPicker: RecyclerView
   private lateinit var root: View
+
 
   lateinit var adapter: SliderAdapter
 
@@ -29,30 +30,21 @@ class EntertainmentFragment() : Fragment() {
   ): View? {
     root = inflater.inflate(R.layout.fragment_entertainment, container, false)
     setHorizontalPicker()
-//    val smoothScroller: SmoothScroller = object : LinearSmoothScroller(context) {
-//      override fun getHorizontalSnapPreference(): Int {
-//        return SNAP_TO_START
-//      }
-//    }
-//    smoothScroller.targetPosition = 0;
-//    rvHorizontalPicker.layoutManager!!.startSmoothScroll(smoothScroller);
-
-
-
     return root
   }
 
   private fun setHorizontalPicker() {
     rvHorizontalPicker = root.findViewById(R.id.rv_horizontal_picker)
     // Задаем отступ чтобы текст был по середине
-    val padding: Int = ScreenUtils.getScreenWidth(root.context)/2 //- ScreenUtils.dpToPx(this, 40)
+    val padding: Int = getScreenWidth(root.context)/2 //- ScreenUtils.dpToPx(this, 40)
     rvHorizontalPicker.setPadding(padding, 0, padding, 0)
 
 
     rvHorizontalPicker.layoutManager = SliderLayoutManager(root.context).apply {
       callback = object : SliderLayoutManager.OnItemSelectedListener {
         override fun onItemSelected(layoutPosition: Int) {
-            when (layoutPosition) {
+          currPos = layoutPosition+1
+          when (layoutPosition) {
               0 -> {
                 activity?.let {
                   it.supportFragmentManager.beginTransaction().replace(
@@ -113,10 +105,6 @@ class EntertainmentFragment() : Fragment() {
     }
     rvHorizontalPicker.adapter = adapter
 
-//    rvHorizontalPicker.post(Runnable { // Call smooth scroll
-//      rvHorizontalPicker.smoothScrollToPosition((rvHorizontalPicker.adapter as SliderAdapter).itemCount - 1)
-//    })
-    //(rvHorizontalPicker.layoutManager as SliderLayoutManager).firstorder()
   }
 
 }
