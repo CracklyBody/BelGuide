@@ -15,14 +15,10 @@ class MarketAdapter (private val articles:List<ItemMarket> = listOf(),
                      private val context: Context
 ) : RecyclerView.Adapter<MarketAdapter.MarketViewHolder>() {
 
-    private var sharedPreferences: SharedPreferences = context.getSharedPreferences(0.toString(),
-        AppCompatActivity.MODE_PRIVATE
-    )
     lateinit var onItemClickListener: OnItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketViewHolder {
         val view:View= LayoutInflater.from(context).inflate(R.layout.item_market_list,parent,false)
-
-        return MarketViewHolder(view, onItemClickListener,sharedPreferences)
+        return MarketViewHolder(view, onItemClickListener)
     }
 
     override fun onBindViewHolder(holders: MarketViewHolder, position: Int) {
@@ -31,15 +27,14 @@ class MarketAdapter (private val articles:List<ItemMarket> = listOf(),
         holder.marketName.text = model.title
         holder.marketPrice.text = model.value.toString()
         Picasso.get().load(model.uriToImg).into(holder.imageView)
-
     }
 
     override fun getItemCount(): Int = articles.size
 
     interface OnItemClickListener{
-        fun onItemClick(view: View, position:Int)
+        fun onItemClick(view: View, position:Int,buttonId:Int)
     }
-    class MarketViewHolder(itemView: View, onItemClickListener: OnItemClickListener, private var sharedPreferences: SharedPreferences) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    class MarketViewHolder(itemView: View, onItemClickListener: OnItemClickListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         var marketPrice: TextView
         var marketName: TextView
         var butt: Button
@@ -58,21 +53,7 @@ class MarketAdapter (private val articles:List<ItemMarket> = listOf(),
         }
 
         override fun onClick(v: View) {
-            if(v.id == butt.id){
-                val price = marketPrice.text.toString().toLong()
-                val editor = sharedPreferences.edit()
-                val wallet:Long = sharedPreferences.getLong("value",0)
-                if(price <= wallet){
-                    editor.putLong("value", wallet-price)
-                    editor.apply()
-                    v.rootView.findViewById<TextView>(R.id.text_market).text = (wallet-price).toString()
-                    Toast.makeText(v.context,"Куплено!", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(v.context,"Не хватает баллов", Toast.LENGTH_SHORT).show()
-                }
-            }
-            onItemClickListener.onItemClick(v,adapterPosition)
+            onItemClickListener.onItemClick(v,adapterPosition,butt.id)
         }
     }
 }

@@ -3,26 +3,22 @@ package com.example.testframe.ui.entertainment.content
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testframe.R
 
-class SliderAdapter : RecyclerView.Adapter<SliderItemViewHolder>() {
+class SliderAdapter : RecyclerView.Adapter<SliderAdapter.SliderItemViewHolder>() {
 
     private val data: ArrayList<String> = ArrayList();
     var callback: Callback? = null
-    val clickListener = object : View.OnClickListener {
-        override fun onClick(v: View?) {
-            v?.let { callback?.onItemClicked(it) }
-        }
-    }
+    val clickListener = View.OnClickListener { v -> v?.let { callback?.onItemClicked(it) } }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderItemViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.slider_item, parent, false)
 
         itemView.setOnClickListener(clickListener)
 
-        val horizontalViewHolder = SliderItemViewHolder(itemView)
-        return horizontalViewHolder
+        return SliderItemViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
@@ -30,8 +26,9 @@ class SliderAdapter : RecyclerView.Adapter<SliderItemViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SliderItemViewHolder, position: Int) {
-        holder.tvItem?.text = data[position]
+        holder.tvItem.text = data[position]
     }
+
 
     fun setData(data: ArrayList<String>) {
         this.data.clear()
@@ -41,5 +38,9 @@ class SliderAdapter : RecyclerView.Adapter<SliderItemViewHolder>() {
 
     interface Callback {
         fun onItemClicked(view: View)
+    }
+    class SliderItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val tvItem: TextView = itemView.findViewById(R.id.tv_item)
     }
 }

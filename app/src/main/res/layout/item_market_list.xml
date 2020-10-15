@@ -66,6 +66,7 @@
         android:text="Купить"
         app:layout_constraintStart_toEndOf="@+id/market_item_text"
         app:layout_constraintTop_toTopOf="@+id/market_item_text"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="11dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

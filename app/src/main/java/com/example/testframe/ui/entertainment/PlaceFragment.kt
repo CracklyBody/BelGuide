@@ -26,17 +26,23 @@ class PlaceFragment(val articles: List<Place>): Fragment(){
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         root = inflater.inflate(R.layout.place_details, container, false)
+
+        initViews()
+
+        loadData("")
+
+        return root
+    }
+
+    private fun initViews() {
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_cinema)
-        swipeRefreshLayout.setOnRefreshListener{this}
+        swipeRefreshLayout.setOnRefreshListener { this }
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
         recyclerView = root.findViewById(R.id.cinema_recycler_view)
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.isNestedScrollingEnabled = false
-        loadData("")
-
-        return root
     }
 
     private fun onLoadingSwipeRefresh(keyword: String) {
@@ -53,7 +59,6 @@ class PlaceFragment(val articles: List<Place>): Fragment(){
     private fun initListener(){
         adapter.onItemClickListener = object: PlaceAdapter.OnItemClickListener{
             override fun onItemClick(view: View, position: Int) {
-
             }
         }
     }

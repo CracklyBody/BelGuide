@@ -1,16 +1,27 @@
 package com.example.testframe.ui.entertainment.content
 
 import android.content.Context
+import android.graphics.PointF
+import android.util.DisplayMetrics
+import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testframe.R
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.sqrt
 
-class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
 
+class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) {
+    private val MILLISECONDS_PER_INCH = 50f
+    var currPos: Int = 1
+    private var timer: Timer
     init {
         orientation = HORIZONTAL
+        timer = Timer()
     }
 
     lateinit var callback: OnItemSelectedListener
@@ -22,6 +33,13 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
 
         // Smart snapping
         LinearSnapHelper().attachToRecyclerView(recyclerView)
+        recyclerView.scrollToPosition(10)
+//        timer.scheduleAtFixedRate(object : TimerTask() {
+//            override fun run() {
+//                recyclerView.smoothScrollToPosition(currPos)
+//                if (currPos >= recyclerView.adapter!!.itemCount) currPos=0 else currPos++
+//            }
+//        }, 1000, 1000)
     }
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State) {
@@ -29,7 +47,11 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
         scaleDownView()
     }
 
-    override fun scrollHorizontallyBy(dx: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?): Int {
+    override fun scrollHorizontallyBy(
+        dx: Int,
+        recycler: RecyclerView.Recycler?,
+        state: RecyclerView.State?
+    ): Int {
         return if (orientation == HORIZONTAL) {
             val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
             scaleDownView()
@@ -49,15 +71,12 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
             val distanceFromCenter = abs(mid - childMid)
 
             // The scaling formula
-            val scale = 1- sqrt((distanceFromCenter/width).toDouble()).toFloat()*0.66f
+            val scale = 1- sqrt((distanceFromCenter / width).toDouble()).toFloat()*0.66f
 
             // Set scale to view
             child.scaleX = scale
             child.scaleY = scale
         }
-    }
-    fun firstorder(){
-        callback.erp()
     }
     override fun onScrollStateChanged(state: Int) {
         super.onScrollStateChanged(state)
@@ -68,10 +87,12 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
             // Find the closest child to the recyclerView center --> this is the selected item.
             val recyclerViewCenterX = getRecyclerViewCenterX()
             var minDistance = recyclerView.width
-            var position = -1
+            var position = 0
             for (i in 0 until recyclerView.childCount) {
                 val child = recyclerView.getChildAt(i)
-                val childCenterX = getDecoratedLeft(child) + (getDecoratedRight(child) - getDecoratedLeft(child)) / 2
+                val childCenterX = getDecoratedLeft(child) + (getDecoratedRight(child) - getDecoratedLeft(
+                    child
+                )) / 2
                 val newDistance = abs(childCenterX - recyclerViewCenterX)
                 if (newDistance < minDistance) {
                     minDistance = newDistance
@@ -84,12 +105,32 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
         }
     }
 
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView?,
+        state: RecyclerView.State?, position: Int
+    ) {
+        val smoothScroller: LinearSmoothScroller = object : LinearSmoothScroller(context) {
+            //This controls the direction in which smoothScroll looks
+            //for your view
+            override fun computeScrollVectorForPosition(targetPosition: Int): PointF? {
+                return this@SliderLayoutManager
+                    .computeScrollVectorForPosition(targetPosition)
+            }
+
+            //This returns the milliseconds it takes to
+            //scroll one pixel.
+            override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
+            }
+        }
+        smoothScroller.targetPosition = position
+        startSmoothScroll(smoothScroller)
+    }
     private fun getRecyclerViewCenterX() : Int {
         return (recyclerView.right - recyclerView.left)/2 + recyclerView.left
     }
 
     interface OnItemSelectedListener {
         fun onItemSelected(layoutPosition: Int)
-        fun erp(){onItemSelected(0)}
     }
 }

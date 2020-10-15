@@ -10,7 +10,7 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 const val BASE_URL: String = "https://newsapi.org/v2/"
-var retrofit: Retrofit? = null
+lateinit var retrofit: Retrofit
 
 class ApiClient(){
 
@@ -21,7 +21,7 @@ class ApiClient(){
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            return retrofit!!
+            return retrofit
         }
 
         fun getUnsafeOkHttpClient(): OkHttpClient.Builder {

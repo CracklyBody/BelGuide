@@ -25,13 +25,17 @@ class PlaceAdapter(
 
     override fun onBindViewHolder(holders: PlaceViewHolder, position: Int) {
         val holder: PlaceViewHolder = holders
-        val model: Place = articles.get(position)
+        val model: Place = articles[position]
+        setBackgroundRandomColor(holder)
+        Picasso.get().load(model.uriToImg).into(holder.imageView)
+        holder.cinema_title.text = model.title
+    }
+
+    private fun setBackgroundRandomColor(holder: PlaceViewHolder) {
         val rnd = Random
         val color: Int = Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
         holder.imageView.setBackgroundColor(color)
         holder.progressBar.visibility = View.INVISIBLE
-        Picasso.get().load(model.uriToImg).into(holder.imageView)
-        holder.cinema_title.setText(model.title)
     }
 
     override fun getItemCount(): Int = articles.size

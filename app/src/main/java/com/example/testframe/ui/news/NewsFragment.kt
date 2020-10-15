@@ -38,15 +38,24 @@ class NewsFragment : Fragment() {
   private lateinit var errorTitle: TextView
   private lateinit var errorMessage:TextView
   private lateinit var btnRetry: Button
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     val root_t = inflater.inflate(R.layout.fragment_news, container, false)
-    //activity?.setContentView(R.layout.fragment_news)
+
+    initViews(root_t)
+
+    onLoadingSwipeRefresh()
+
+    return root_t
+  }
+
+  private fun initViews(root_t: View) {
     swipeRefreshLayout = root_t.findViewById(R.id.swipe_refresh_layout)
-    swipeRefreshLayout.setOnRefreshListener{this}
+    swipeRefreshLayout.setOnRefreshListener { loadJson() }
     swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
 
     topHeadline = root_t.findViewById(R.id.topheadelines)
@@ -55,14 +64,11 @@ class NewsFragment : Fragment() {
     recyclerView.layoutManager = layoutManager
     recyclerView.itemAnimator = DefaultItemAnimator()
     recyclerView.isNestedScrollingEnabled = false
-
-    onLoadingSwipeRefresh()
     errorLayout = root_t.findViewById(R.id.errorLayout)
     errorImage = root_t.findViewById(R.id.errorImage)
     errorTitle = root_t.findViewById(R.id.errorTitle)
     errorMessage = root_t.findViewById(R.id.errorMessage)
     btnRetry = root_t.findViewById(R.id.btnRetry)
-    return root_t
   }
 
   private fun loadJson(){
@@ -70,7 +76,6 @@ class NewsFragment : Fragment() {
     swipeRefreshLayout.isRefreshing = true
     val apiInterface: ApiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
 
-    val country = Utils.getCountry()
     val language = Utils.getLanguage()
 
     val call: Call<News>
@@ -80,7 +85,7 @@ class NewsFragment : Fragment() {
       override fun onResponse(call: Call<News>, response: Response<News>) {
         if (response.isSuccessful && response.body()?.article != null) {
 
-          articles = response.body()!!.article
+          articles = response.body()!!.article.filter{it.urlToImage != null}.filter { ".png" in it.urlToImage || ".jpg" in it.urlToImage}
           adapter = Adapter(articles, context!!)
           recyclerView.adapter = adapter
           adapter.notifyDataSetChanged()
@@ -129,7 +134,6 @@ class NewsFragment : Fragment() {
   private fun initListener(){
     adapter.onItemClickListener = object: Adapter.OnItemClickListener{
       override fun onItemClick(view: View, position: Int) {
-        val imageView: ImageView = view.findViewById(R.id.img)
         val article: Article = articles[position]
 
         val i = Intent(Intent.ACTION_VIEW)
@@ -153,8 +157,5 @@ class NewsFragment : Fragment() {
     errorMessage.text = message
     btnRetry.setOnClickListener { onLoadingSwipeRefresh() }
   }
-
-  //override fun onRefresh() = LoadJson("")
-
 
 }

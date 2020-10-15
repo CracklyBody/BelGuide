@@ -20,21 +20,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        navView.setOnNavigationItemSelectedListener(navListener);
-        sharedPreferences = getSharedPreferences(0.toString(), MODE_PRIVATE)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView.setOnNavigationItemSelectedListener(navListener)
+
         selectedFragment = NewsFragment()
         supportFragmentManager.beginTransaction().replace(
             R.id.nav_host_fragment,
             selectedFragment
         ).addToBackStack(null)
             .commit()
-        val editor = sharedPreferences.edit()
-        val lng:Long = sharedPreferences.getLong("value",0)
-        editor.putLong("value", lng+5000)
-        editor.apply()
 
+        initSharedPreferences()
+    }
+
+    private fun initSharedPreferences() {
+        sharedPreferences = getSharedPreferences(0.toString(), MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val lng: Long = sharedPreferences.getLong("value", 0)
+        editor.putLong("value", lng + 5000)
+        editor.apply()
     }
 
     private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
@@ -51,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_market -> {
                     val v:Long = 2
-                    selectedFragment = MarketFragment(sharedPreferences.getLong("value",v))
+                    selectedFragment = MarketFragment(sharedPreferences)
                 }
                 else -> selectedFragment = ProfileFragment()
             }
