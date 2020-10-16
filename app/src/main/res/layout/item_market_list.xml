@@ -61,10 +61,9 @@
         app:layout_constraintTop_toBottomOf="@+id/market_item_text" />
     <Button
         android:id="@+id/buy_button"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="69dp"
         android:text="Купить"
-        app:layout_constraintStart_toEndOf="@+id/market_item_text"
         app:layout_constraintTop_toTopOf="@+id/market_item_text"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="11dp" />
