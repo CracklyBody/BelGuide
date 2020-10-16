@@ -18,9 +18,6 @@ class EntertainmentFragment() : Fragment() {
   private lateinit var rvHorizontalPicker: RecyclerView
   private lateinit var root: View
 
-
-  lateinit var adapter: SliderAdapter
-
   private val data = listOf<String>("Кинотеатр", "Парк", "ТЦ", "Театр", "Музей").map { it } as ArrayList<String>
 
   override fun onCreateView(
@@ -95,15 +92,15 @@ class EntertainmentFragment() : Fragment() {
       }
     }
     // Setting Adapter
-    adapter = SliderAdapter().apply {
+    rvHorizontalPicker.adapter = SliderAdapter().apply {
       setData(data)
       callback = object : SliderAdapter.Callback {
         override fun onItemClicked(view: View) {
+          rvHorizontalPicker.scrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
           rvHorizontalPicker.smoothScrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
         }
       }
     }
-    rvHorizontalPicker.adapter = adapter
 
   }
 
