@@ -18,6 +18,7 @@ class MarketFragment(private var sharedPreferences: SharedPreferences) : Fragmen
   private lateinit var recyclerView: RecyclerView
   private lateinit var layoutManager: RecyclerView.LayoutManager
   private lateinit var adapter: MarketAdapter
+  private lateinit var points: TextView
   private lateinit var root: View
 
   override fun onCreateView(
@@ -33,6 +34,7 @@ class MarketFragment(private var sharedPreferences: SharedPreferences) : Fragmen
 
   private fun initViews() {
     recyclerView = root.findViewById(R.id.market_recycler_view)
+    points = root.findViewById(R.id.text_market)
     layoutManager = LinearLayoutManager(context)
     recyclerView.layoutManager = layoutManager
     recyclerView.itemAnimator = DefaultItemAnimator()
@@ -44,6 +46,9 @@ class MarketFragment(private var sharedPreferences: SharedPreferences) : Fragmen
     recyclerView.adapter = adapter
     adapter.notifyDataSetChanged()
     initListener()
+    val wallet:Long = sharedPreferences.getLong("value",0)
+    points.text = wallet.toString()
+
   }
 
   private fun initListener(){
@@ -56,7 +61,7 @@ class MarketFragment(private var sharedPreferences: SharedPreferences) : Fragmen
           if(price <= wallet){
             editor.putLong("value", wallet-price)
             editor.apply()
-            view.rootView.findViewById<TextView>(R.id.text_market).text = (wallet-price).toString()
+            points.text = (wallet-price).toString()
             Toast.makeText(view.context,"Куплено!", Toast.LENGTH_SHORT).show()
           }
           else{

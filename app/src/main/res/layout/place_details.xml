@@ -8,19 +8,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.entertainment.PlaceFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_cinema"
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rv_horizontal_picker">
+            android:layout_below="@+id/rv_horizontal_picker"
+            app:layout_constraintTop_toBottomOf="@+id/rv_horizontal_picker">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,5 +29,4 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
