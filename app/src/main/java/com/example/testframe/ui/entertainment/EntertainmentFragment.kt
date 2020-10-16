@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.Utils
 import com.example.newsapp.Utils.getScreenWidth
 import com.example.testframe.R
 import com.example.testframe.ui.*
@@ -33,14 +34,14 @@ class EntertainmentFragment() : Fragment() {
   private fun setHorizontalPicker() {
     rvHorizontalPicker = root.findViewById(R.id.rv_horizontal_picker)
     // Задаем отступ чтобы текст был по середине
-    val padding: Int = getScreenWidth(root.context)/2 //- ScreenUtils.dpToPx(this, 40)
+    val padding: Int = getScreenWidth(root.context)/2 - Utils.dpToPx(root.context, 40)
     rvHorizontalPicker.setPadding(padding, 0, padding, 0)
 
 
     rvHorizontalPicker.layoutManager = SliderLayoutManager(root.context).apply {
       callback = object : SliderLayoutManager.OnItemSelectedListener {
         override fun onItemSelected(layoutPosition: Int) {
-          currPos = layoutPosition+1
+          currPos = layoutPosition
           when (layoutPosition) {
               0 -> {
                 activity?.let {
@@ -85,6 +86,7 @@ class EntertainmentFragment() : Fragment() {
                     PlaceFragment(museum_list)
                   ).addToBackStack(null)
                     .commit()
+                  currPos+=1
                 }
               }
             }
@@ -97,7 +99,12 @@ class EntertainmentFragment() : Fragment() {
       callback = object : SliderAdapter.Callback {
         override fun onItemClicked(view: View) {
           rvHorizontalPicker.scrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
-          rvHorizontalPicker.smoothScrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
+          rvHorizontalPicker.layoutManager!!.smoothScrollToPosition(
+            rvHorizontalPicker,
+            RecyclerView.State(),
+            rvHorizontalPicker.getChildLayoutPosition(view)
+          )
+          //rvHorizontalPicker.smoothScrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
         }
       }
     }

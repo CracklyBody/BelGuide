@@ -16,7 +16,7 @@ import kotlin.math.sqrt
 
 
 class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) {
-    private val MILLISECONDS_PER_INCH = 50f
+    private val MILLISECONDS_PER_INCH = 100f
     private var timer = Timer()
     var currPos: Int = 1
     init {
@@ -69,15 +69,15 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
         val mid = width / 2.0f
         for (i in 0 until childCount) {
 
-            // Calculating the distance of the child from the center
+            // Расчет расстояния соседа от центра
             val child = getChildAt(i)!!
             val childMid = (getDecoratedLeft(child) + getDecoratedRight(child)) / 2.0f
             val distanceFromCenter = abs(mid - childMid)
 
-            // The scaling formula
+            // Формула маштабирования
             val scale = 1- sqrt((distanceFromCenter / width).toDouble()).toFloat()*0.66f
 
-            // Set scale to view
+            // Задаем масштабирование для соседа
             child.scaleX = scale
             child.scaleY = scale
         }
@@ -85,10 +85,10 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
     override fun onScrollStateChanged(state: Int) {
         super.onScrollStateChanged(state)
 
-        // When scroll stops we notify on the selected item
+        // Когда прокрутка останавливается, мы уведомляем выбранный элемент
         if (state == RecyclerView.SCROLL_STATE_IDLE) {
 
-            // Find the closest child to the recyclerView center --> this is the selected item.
+            // Найдем ближайший соседний элемента к центру recyclerView -> это выбранный элемент.
             val recyclerViewCenterX = getRecyclerViewCenterX()
             var minDistance = recyclerView.width
             var position = 0
@@ -104,7 +104,7 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
                 }
             }
 
-            // Notify on item selection
+            // сообщаем о выбранном элементе
             callback.onItemSelected(position)
         }
     }
@@ -114,15 +114,13 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
         state: RecyclerView.State?, position: Int
     ) {
         val smoothScroller: LinearSmoothScroller = object : LinearSmoothScroller(context) {
-            //This controls the direction in which smoothScroll looks
-            //for your view
+            //Контролирует направление вы котором будет двигаться smooth scroll
             override fun computeScrollVectorForPosition(targetPosition: Int): PointF? {
                 return this@SliderLayoutManager
                     .computeScrollVectorForPosition(targetPosition)
             }
 
-            //This returns the milliseconds it takes to
-            //scroll one pixel.
+            //Возвращает время прокрутки одного пикселя в милисекундах
             override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
                 return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
             }
