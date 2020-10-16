@@ -98,13 +98,11 @@ class EntertainmentFragment() : Fragment() {
       setData(data)
       callback = object : SliderAdapter.Callback {
         override fun onItemClicked(view: View) {
-          rvHorizontalPicker.scrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
           rvHorizontalPicker.layoutManager!!.smoothScrollToPosition(
             rvHorizontalPicker,
             RecyclerView.State(),
             rvHorizontalPicker.getChildLayoutPosition(view)
           )
-          //rvHorizontalPicker.smoothScrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
         }
       }
     }
