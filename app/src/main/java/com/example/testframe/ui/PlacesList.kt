@@ -17,7 +17,7 @@ val park_list = listOf(
     Place("Победа",Uri.parse("https://bel.cultreg.ru/uploads/370c4d2fc7f0a815d9fd55909c5d4f4d_w540_h360.jpg")),
     Place("Центарльный",Uri.parse("https://media-cdn.tripadvisor.com/media/photo-s/06/68/b2/34/caption.jpg")),
     Place("Пушкинская аллея",Uri.parse("https://gidavia.com/wp-content/uploads/2018/12/6-%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F-%D0%B0%D0%BB%D0%BB%D0%B5%D1%8F.jpg")),
-    Place("Юнити", Uri.parse("https://lh3.googleusercontent.com/proxy/XDe247bnfUKxxl4izmWlu3ZzYnB9G6bDX8PG52mPl1809BaWoUsljGLAenBFpAa4Nhja7cdwNZIAy2dnOnxcHUZYEH-v_F-RUbOiKahSc0QsUfgpBTIwK5ZkZODnHMso78P70VYrfWoedYmuSkidBKJInWpl9TZNzIaUhEQ0hOB_1ukaHxR51dtK8dpDsRGEqn4")),
+    Place("Юнити", Uri.parse("https://lh3.googleusercontent.com/proxy/Odc8lB4DT4evGqj5HViBQJomgl5kK5BML89nzawrj90adbZo_eyyLnOrXj9dgk3QjSdg5X24tqtJRazEI0bvhCzLVEP61ooRYSyAalt815E")),
     Place("Котофей",Uri.parse("https://img02.rl0.ru/5e5ecc2134958c8bd0c27a51ffa82af2/765x525i/https/news.rambler.ru/img/2018/10/53693a9272b0e.jpg")),
     Place("Динопарк", Uri.parse("https://bel.cultreg.ru/uploads/1e22a767c45236a907eb2ec79ac85ea5_w540_h360.jpg"))
 )
