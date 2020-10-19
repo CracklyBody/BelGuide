@@ -13,7 +13,6 @@ interface ApiInterface {
 
     @GET("everything")
     fun getNewsSearch(@Query("q") keyword:String,
-                      @Query("language") language:String,
                       @Query("sortBy") sortBy:String,
                       @Query("apiKey") apiKey:String):Call<News>
 }

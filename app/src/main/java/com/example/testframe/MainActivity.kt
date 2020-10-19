@@ -15,8 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var selectedFragment: Fragment
-
-    lateinit var active: Fragment//1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_market -> {
                     val v:Long = 2
-                    selectedFragment = MarketFragment(sharedPreferences)
+                    selectedFragment = MarketFragment()
                 }
                 else -> selectedFragment = ProfileFragment()
             }

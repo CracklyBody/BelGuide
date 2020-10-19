@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testframe.MainActivity
 import com.example.testframe.R
 import com.example.testframe.ui.market_list
 
-class MarketFragment(private var sharedPreferences: SharedPreferences) : Fragment() {
+class MarketFragment() : Fragment() {
+  private lateinit var sharedPreferences: SharedPreferences
   private lateinit var recyclerView: RecyclerView
   private lateinit var layoutManager: RecyclerView.LayoutManager
   private lateinit var adapter: MarketAdapter
@@ -27,6 +29,7 @@ class MarketFragment(private var sharedPreferences: SharedPreferences) : Fragmen
     savedInstanceState: Bundle?
   ): View? {
     root = inflater.inflate(R.layout.fragment_market, container, false)
+    sharedPreferences = (requireActivity() as MainActivity).sharedPreferences
     initViews()
     loadData()
     return root

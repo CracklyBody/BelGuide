@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
 import java.util.*
@@ -38,6 +40,7 @@ object Utils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value.toFloat(), context.resources.displayMetrics).toInt()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun DateToTimeFormat(oldstringDate: String): String? {
         val p = PrettyTime(Locale(getCountry()))
         var isTime: String? = null
@@ -54,6 +57,7 @@ object Utils {
         return isTime
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun DateFormat(oldstringDate: String): String? {
         val newDate: String
         val dateFormat = SimpleDateFormat("E, d MMM yyyy", Locale(getCountry()))
@@ -70,11 +74,6 @@ object Utils {
     fun getCountry():String{
         val locale: Locale = Locale.getDefault()
         val country: String = java.lang.String.valueOf(locale.getCountry())
-        return country.toLowerCase()
-    }
-    fun getLanguage(): String {
-        val locale = Locale.getDefault()
-        val country = locale.language.toString()
         return country.toLowerCase()
     }
 }

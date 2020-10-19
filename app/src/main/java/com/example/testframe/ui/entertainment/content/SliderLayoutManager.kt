@@ -5,6 +5,7 @@ import android.graphics.PointF
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -35,9 +36,9 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
         recyclerView.isSelected = true
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                if (currPos >= recyclerView.adapter!!.itemCount) currPos = 0 else currPos++
+                if (currPos >= recyclerView.adapter.let { itemCount }) currPos = 0 else currPos++
 
-                recyclerView.layoutManager!!.smoothScrollToPosition(
+                recyclerView.layoutManager?.smoothScrollToPosition(
                     recyclerView,
                     RecyclerView.State(),
                     currPos
@@ -70,7 +71,7 @@ class SliderLayoutManager(val context: Context?) : LinearLayoutManager(context) 
         for (i in 0 until childCount) {
 
             // Расчет расстояния соседа от центра
-            val child = getChildAt(i)!!
+            val child = getChildAt(i)?:View(context)
             val childMid = (getDecoratedLeft(child) + getDecoratedRight(child)) / 2.0f
             val distanceFromCenter = abs(mid - childMid)
 

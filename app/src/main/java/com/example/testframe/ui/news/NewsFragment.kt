@@ -23,6 +23,7 @@ import com.example.testframe.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.NullPointerException
 
 class NewsFragment : Fragment() {
 
@@ -76,17 +77,16 @@ class NewsFragment : Fragment() {
     swipeRefreshLayout.isRefreshing = true
     val apiInterface: ApiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
 
-    val language = Utils.getLanguage()
-
     val call: Call<News>
-    call = apiInterface.getNewsSearch("Белгород", language, "publishedAt", this.API_KEY)
+    call = apiInterface.getNewsSearch("Белгород","publishedAt", this.API_KEY)
 
     call.enqueue(object : Callback<News> {
       override fun onResponse(call: Call<News>, response: Response<News>) {
         if (response.isSuccessful && response.body()?.article != null) {
 
-          articles = response.body()!!.article.filter{it.urlToImage != null}.filter { ".png" in it.urlToImage || ".jpg" in it.urlToImage}
-          adapter = Adapter(articles, context!!)
+          articles = (response.body()?.article?.filter{it.urlToImage != null}?.filter { ".png" in it.urlToImage || ".jpg" in it.urlToImage}
+              ?: return)
+          adapter = Adapter(articles, context?:throw NullPointerException("Параметр context оказался null"))
           recyclerView.adapter = adapter
           adapter.notifyDataSetChanged()
 
