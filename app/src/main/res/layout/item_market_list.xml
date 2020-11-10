@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/background_light"
@@ -28,7 +29,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text=""
+        android:text="Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/market_price_text"
@@ -69,3 +70,4 @@
         android:layout_marginLeft="11dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

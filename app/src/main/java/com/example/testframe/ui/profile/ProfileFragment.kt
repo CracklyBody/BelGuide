@@ -22,14 +22,8 @@ class ProfileFragment : Fragment() {
   ): View? {
     binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false)
     binding.viewModel = profileViewModel
-    profileViewModel.profileName.observe(viewLifecycleOwner){
-      it?.let {
-        binding.profileUserName.text = it.userName
-        binding.mailText.text = it.mail
-        binding.phoneText.text = it.phoneNumber
-        binding.eduText.text = it.education
-      }
-    }
+    binding.executePendingBindings()
+    profileViewModel.profileName.observe(viewLifecycleOwner){}
     return binding.root
   }
 }

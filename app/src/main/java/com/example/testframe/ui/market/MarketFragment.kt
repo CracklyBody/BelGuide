@@ -7,51 +7,54 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testframe.MainActivity
 import com.example.testframe.R
+import com.example.testframe.databinding.FragmentMarketBinding
 import com.example.testframe.ui.market_list
 
-class MarketFragment() : Fragment() {
+class MarketFragment() : Fragment() , MarketAdapter.OnItemClickListener{
   private lateinit var sharedPreferences: SharedPreferences
   private lateinit var recyclerView: RecyclerView
   private lateinit var layoutManager: RecyclerView.LayoutManager
-  private lateinit var adapter: MarketAdapter
   private lateinit var points: TextView
-  private lateinit var root: View
+  private lateinit var binding: FragmentMarketBinding
+  private val viewModel: MarketViewModel by viewModels()
+  private var adapter = MarketAdapter(listOf(), this)
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    root = inflater.inflate(R.layout.fragment_market, container, false)
+    binding = DataBindingUtil.inflate(inflater,R.layout.fragment_market, container, false)
     sharedPreferences = (requireActivity() as MainActivity).sharedPreferences
-    initViews()
+    binding.viewModel = viewModel
+    binding.executePendingBindings()
+
+    binding.marketRecyclerView.layoutManager = LinearLayoutManager(context)
+    binding.marketRecyclerView.itemAnimator =DefaultItemAnimator()
+    binding.marketRecyclerView.isNestedScrollingEnabled = false
+
+
+    binding.marketRecyclerView.adapter = adapter
+    initListener()
     loadData()
-    return root
+    viewModel.marketItems.observe(viewLifecycleOwner,{
+      it?.let { adapter.replaceData(it) }
+    })
+    viewModel.loadMarketItems()
+    return binding.root
   }
 
-  private fun initViews() {
-    recyclerView = root.findViewById(R.id.market_recycler_view)
-    points = root.findViewById(R.id.text_market)
-    layoutManager = LinearLayoutManager(context)
-    recyclerView.layoutManager = layoutManager
-    recyclerView.itemAnimator = DefaultItemAnimator()
-    recyclerView.isNestedScrollingEnabled = false
-  }
 
   private fun loadData(){
-    adapter = MarketAdapter(market_list, requireContext())
-    recyclerView.adapter = adapter
-    adapter.notifyDataSetChanged()
-    initListener()
     val wallet:Long = sharedPreferences.getLong("value",0)
-    points.text = wallet.toString()
-
   }
 
   private fun initListener(){
@@ -73,5 +76,9 @@ class MarketFragment() : Fragment() {
         }
       }
     }
+  }
+
+  override fun onItemClick(view: View, position: Int, buttonId: Int) {
+    TODO("Not yet implemented")
   }
 }
