@@ -3,8 +3,10 @@ package com.example.testframe
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.testframe.ui.MainViewModel
 import com.example.testframe.ui.entertainment.EntertainmentFragment
 import com.example.testframe.ui.market.MarketFragment
 import com.example.testframe.ui.news.NewsFragment
@@ -15,6 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var selectedFragment: Fragment
+    val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,17 +32,16 @@ class MainActivity : AppCompatActivity() {
             selectedFragment
         ).addToBackStack(null)
             .commit()
-
         initSharedPreferences()
     }
-
     private fun initSharedPreferences() {
-        sharedPreferences = getSharedPreferences(0.toString(), MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(0.toString(), AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val lng: Long = sharedPreferences.getLong("value", 0)
         editor.putLong("value", lng + 5000)
         editor.apply()
     }
+
 
     private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->

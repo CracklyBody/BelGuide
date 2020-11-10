@@ -5,7 +5,9 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 30
     buildToolsVersion '28.0.3'
-
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.example.testframe"
         minSdkVersion 21
@@ -65,4 +67,8 @@ dependencies {
 
 //Picasso
     implementation "com.squareup.picasso:picasso:2.71828"
+
+    //LifeCycle
+    implementation "android.arch.lifecycle:runtime:1.1.1"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
 }
